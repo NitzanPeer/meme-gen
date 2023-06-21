@@ -1,8 +1,18 @@
 'use strict'
 
 
+var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
+var gMeme = {
+    selectedImgId: 5, selectedLineIdx: 0,
+    lines: [
+        {
+            txt: 'I sometimes eat Falafel',
+            size: 20,
+            color: 'red'
+        }
+    ]
+}
 
-var gMeme = { selectedImgId: null, selectedLineIdx: -1, lines: [] }
 
 var gImages = [
     _createImage(1),
@@ -33,14 +43,22 @@ function getImages() {
     return gImages
 }
 
-function setMemeImageId(imgId){
-    gMeme.selectedImgId = imgId
+function getImageById(imgId) {
+    gImages.find(image => imgId === image.id)
 }
 
 function _createImage(imgId) {
     var imgUrl = `img/meme-imgs-square/${imgId}.jpg`
     return {
         id: imgId,
-        imgUrl,
+        imgUrl
     }
+}
+
+function setLineTxt(text) {
+    gMeme.lines[gMeme.selectedLineIdx].txt = text
+}
+
+function setImg(imgId) {
+    gMeme.selectedImgId = imgId
 }

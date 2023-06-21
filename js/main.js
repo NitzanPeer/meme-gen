@@ -1,16 +1,30 @@
 
 
-function init(){
-    initGallery()
-    initEditor()
+function onInit(){
+    renderGallery()
 }
 
-function switchToEditorView(){
-    hideGallery()
-    showEditor()
-}
-
-function switchToGalleryView(){
-    hideEditor()
+function switchToGalleryView() {
     showGallery()
+    hideMeme()
+    renderGallery()
+}
+function switchToMemeView(){
+    hideGallery()
+    showMeme()
+    renderMeme()
+}
+
+
+function hideGallery() {
+    hideElement('.img-gallery-section')
+}
+function showGallery() {
+   showElement('.img-gallery-section')
+}
+function hideMeme() {
+    hideElement('.meme-section')
+}
+function showMeme() {
+    showElement('.meme-section')
 }

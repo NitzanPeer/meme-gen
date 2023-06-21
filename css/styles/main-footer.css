@@ -4,6 +4,9 @@
     background-color: var(--clrBackgroundHeaderFooter);
     border-top: 1px solid;
     border-color: #e1e0e0;
+
+    margin-block-end: auto;
+    min-height: 100%
 }
 
 .main-footer .logo {

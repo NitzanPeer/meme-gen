@@ -1,25 +1,23 @@
 'use strict'
 
-
-function galleryInit(){
-    addListeners()
-}
+// console.log('getImages()', getImages())
+// console.log('getMeme()', getMeme())
 
 
-function addListeners() {
-    magic_all_gallery_images.addEventListener("click", onImageSelected, false);
-}
 
-function onImageSelected(){
-    // get selected img id
-    // switch view
-}
-
-function renderImages(images) {
-    var strHtmls = images.map(image => `
+function renderGallery(images) {
+    var images = getImages()
+    var strHTMLs = images.map(image => `
         <li class="gallery-img">
-            <a href="" data-img-id="${image.id}"><img src="${image.imgUrl}" alt=""></a>
+            <a href="#" onclick="onImgSelect(${image.id})"><img src="${image.imgUrl}" alt=""></a>
         </li>
     `)
-    document.querySelector('img-gallery').innerHTML = strHtmls.join('')
+    document.querySelector('.img-gallery').innerHTML = strHTMLs.join('')
+}
+
+function onImgSelect(imgId) {
+    setImg(imgId)
+    renderMeme()
+    hideGallery()
+    showMeme()
 }

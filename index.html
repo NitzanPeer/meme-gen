@@ -7,18 +7,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Meme Generator</title>
 
-
     </head>
-    <body class="main-layout">
+    <body class="main-layout" onload="renderGallery()">
 
         <header class="main-header">
             <div class="container flex space-between align-center"></div>
             <div class="logo">MEMEGEN</div>
             <nav class="main-nav-container">
                 <ul class="main-nav flex clean-list">
-                    <li><a href="Gallery.html">Gallery</a></li>
-                    <li><a href="Saved.html">Saved</a></li>
-                    <li><a href="About.html">About</a></li>
+                    <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
+                    <li><a href="#">Saved</a></li>
+                    <li><a href="#">About</a></li>
                 </ul>
             </nav>
         </header>
@@ -28,44 +27,28 @@
         <div>
             <section class="img-gallery-section">
                 <ul class="img-gallery flex clean-list">
-                    <li class="" onclick=""><a href=""><img src="img/meme-imgs-square/1.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/2.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/3.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/4.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/5.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/6.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/7.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/8.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/9.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/10.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/11.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/12.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/13.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/14.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/15.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/16.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/17.jpg" alt=""></a></li>
-                    <li class=""><a href=""><img src="img/meme-imgs-square/18.jpg" alt=""></a></li>
                 </ul>
             </section>
 
-
-
-            <section class="editor">
+            <section class="meme-section flex hide">
                 <div class="canvas-container">
                     <canvas id="my-canvas" height="450" width="450"></canvas>
                 </div>
-                <div class="settings-container">
-                    <div class="card">
-                        <img src="img/meme-imgs-square/1.jpg" alt="" class="card-image">
-                        <div class="settings-rightside-container">
-                            <input type="text">
-                            <a class="save-btn" href="#" onclick="onSaveCanvas(this)" download="">Save</a>
-                            <div class="clear-btn" onclick="onClearCanvas()">Clear</div>
-                            <div class="upload-btn" onclick="onUploadCanvas()">Upload</div>
-                            <input type="file" onchange="onAddImage(event)">
-                        </div>
+
+                <div class="editor-container">
+                    <div class="editor-mid-container">
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
                     </div>
+                    <div class="editor-bottom-container">
+                        <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
+                        <a class="save-btn" href="#" onclick="onSaveCanvas(this)" download="">Save</a>
+                        <div class="clear-btn" onclick="onClearCanvas()">Clear</div>
+                        <div class="upload-btn" onclick="onUploadCanvas()">Upload</div>
+                        <input type="file" onchange="onAddImage(event)">
+                    </div>
+                </div>
             </section>
         </div>
 

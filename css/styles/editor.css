@@ -1,20 +1,13 @@
-.card {
-    display: grid;
-    grid-template-columns: 470px 470px;
-    margin-block-end: 80px;
-    gap: 40px;
-}
-
-.settings-rightside-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    margin-top: 0;
-    margin-bottom: 0;
+.meme-section {
+    justify-content: center;
+    /* align-items: center; */
+    /* height: 100vh; */
 }
 
 .save-btn {
     border-radius: 20px;
+    text-decoration: none;
+    border: 2px solid black;
     padding: 5px;
     font-family: sans-serif;
     width: 210px;
