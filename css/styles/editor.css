@@ -1,0 +1,22 @@
+.card {
+    display: grid;
+    grid-template-columns: 470px 470px;
+    margin-block-end: 80px;
+    gap: 40px;
+}
+
+.settings-rightside-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.save-btn {
+    border-radius: 20px;
+    padding: 5px;
+    font-family: sans-serif;
+    width: 210px;
+    height: 40px;
+}
