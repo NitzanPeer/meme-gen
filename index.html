@@ -1,3 +1,13 @@
+<!-- TODO:
+
+1. align left and right are switched, maybe because of css direction
+2. after the user uploads his own image, when going back to the gallery and
+picking a new img - it doesn't render. gUserImage should be reset to null at some point to fix that
+3. some bug with the strokeStyle, sometimes shows distorted lines
+
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,10 +21,10 @@
     <body class="main-layout" onload="renderGallery()">
 
         <header class="main-header">
-            <div class="container flex space-between align-center"></div>
+            <div class="container flex space-between"></div>
             <div class="logo">MEMEGEN</div>
             <nav class="main-nav-container">
-                <ul class="main-nav flex clean-list">
+                <ul class="main-nav">
                     <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
                     <li><a href="#">Saved</a></li>
                     <li><a href="#">About</a></li>
@@ -23,10 +33,9 @@
         </header>
 
 
-
         <div>
             <section class="img-gallery-section">
-                <ul class="img-gallery flex clean-list">
+                <ul class="img-gallery">
                 </ul>
             </section>
 
@@ -36,31 +45,43 @@
                 </div>
 
                 <div class="editor-container">
-                    <div class="editor-mid-container">
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
+
+                    <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
+
+                    <div>
+                        <div class="btn create-line-btn" onclick="onAddNewLine()">Add New Line</div>
                     </div>
-                    <div class="editor-bottom-container">
-                        <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
-                        <a class="save-btn" href="#" onclick="onSaveCanvas(this)" download="">Save</a>
-                        <div class="clear-btn" onclick="onClearCanvas()">Clear</div>
-                        <div class="upload-btn" onclick="onUploadCanvas()">Upload</div>
+
+                    <div class="style-btns-container">
+                        <div class="btn increase-fontsize-btn" onclick="onChangeSize(true)">A+</div>
+                        <div class="btn decrease-fontsize-btn" onclick="onChangeSize(false)">A-</div>
+                        <label>Font Color: </label>
+                        <input class="btn change-fontclr-btn" name="textColor" type="color" oninput="onChangeColor()"></input>
+                        <select id="font-dropDown" onchange="onChangeFont()">
+                            <option value="Impact">Impact</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                        </select>
+                        <select id="align-dropDown" onchange="onChangeAlign()">
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+                        <div class="btn clear-btn" onclick="onClearCanvas()">Clear</div>
+                    </div>
+
+                    <div class="option-btns-container">
                         <input type="file" onchange="onAddImage(event)">
+
+                        <div>
+                            <a class="btn download-btn" href="#" onclick="onDownloadCanvas(this)" download="">Download</a>
+                            <div class="btn share-btn" onclick="onUploadCanvas()">Share</div>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
-
-
-
-        <footer class="main-footer">
-            <div class="container flex space-between align-center direction-column">
-                <div class="logo">MEMEGEN</div>
-                <h3></h3>
-            </div>
-        </footer>
-
 
 
     <script src="js/services/utilService.js"></script>
@@ -68,5 +89,7 @@
     <script src="js/galleryController.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/main.js"></script>
-</body>
+    </body>
 </html>
+
+

@@ -2,13 +2,23 @@
 
 
 var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
+
 var gMeme = {
     selectedImgId: 5, selectedLineIdx: 0,
     lines: [
         {
             txt: 'I sometimes eat Falafel',
-            size: 20,
-            color: 'red'
+            size: 36,
+            font: 'Impact',
+            color: 'white',
+            textAlign: 'center'
+        },
+        {
+            txt: 'Hello World',
+            size: 45,
+            font: 'Arial',
+            color: 'white',
+            textAlign: 'center'
         }
     ]
 }
@@ -55,10 +65,40 @@ function _createImage(imgId) {
     }
 }
 
+function setImg(imgId) {
+    gMeme.selectedImgId = imgId
+}
 function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
+function setSize(size) {
+    gMeme.lines[gMeme.selectedLineIdx].size = size
+}
+function setFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font
+}
+function setColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+}
+function strokeStyle(strokeStyle) {
+    gMeme.lines[gMeme.selectedLineIdx].strokeStyle = strokeStyle
+}
+function setTextAlign(textAlign) {
+    gMeme.lines[gMeme.selectedLineIdx].textAlign = textAlign
+}
 
-function setImg(imgId) {
-    gMeme.selectedImgId = imgId
+function addNewLine() {
+    gMeme.lines.push(
+        {
+            txt: 'New Line',
+            size: 50,
+            font: 'Impact',
+            color: 'white',
+            textAlign: 'center'
+        }
+    )
+}
+
+function removeLines() {
+    gMeme.lines = []
 }

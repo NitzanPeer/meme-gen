@@ -4,12 +4,10 @@
 
 .container {
     margin: 0 auto;
-    max-width: 980px;
     width: 100%;
 }
 
 main {
-    max-width: 980px;
     margin: 0 auto;
     border: 1px solid;
     border-color: #e1e0e0;
@@ -44,11 +42,6 @@ main {
     text-decoration: none;
     color: white;
 }
-
-    .main-nav-container ul li a:hover {
-        color: var(--clrHoveredAndClickedBtns);
-        border-width: 100%;
-    }
 
 .main-header {
     background-color: var(--clrBackgroundHeaderFooter);

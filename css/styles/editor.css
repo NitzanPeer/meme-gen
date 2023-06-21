@@ -1,10 +1,15 @@
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
 .meme-section {
     justify-content: center;
     /* align-items: center; */
     /* height: 100vh; */
 }
 
-.save-btn {
+.download-btn, .share-btn, .clear-btn, .increase-fontsize-btn, .decrease-fontsize-btn, .create-line-btn {
     border-radius: 20px;
     text-decoration: none;
     border: 2px solid black;
@@ -12,4 +17,16 @@
     font-family: sans-serif;
     width: 210px;
     height: 40px;
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.btn {
+    cursor: pointer;
 }

@@ -1,5 +1,3 @@
-
-
 function onInit(){
     renderGallery()
 }
@@ -13,18 +11,4 @@ function switchToMemeView(){
     hideGallery()
     showMeme()
     renderMeme()
-}
-
-
-function hideGallery() {
-    hideElement('.img-gallery-section')
-}
-function showGallery() {
-   showElement('.img-gallery-section')
-}
-function hideMeme() {
-    hideElement('.meme-section')
-}
-function showMeme() {
-    showElement('.meme-section')
 }

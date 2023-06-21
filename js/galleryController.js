@@ -21,3 +21,10 @@ function onImgSelect(imgId) {
     hideGallery()
     showMeme()
 }
+
+function hideGallery() {
+    hideElement('.img-gallery-section')
+}
+function showGallery() {
+   showElement('.img-gallery-section')
+}

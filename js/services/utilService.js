@@ -9,16 +9,12 @@ function loadFromStorage(key) {
     return JSON.parse(val)
 }
 
-
 function hideElement(selector) {
     document.querySelector(selector).classList.add('hide')
 }
 function showElement(selector) {
     document.querySelector(selector).classList.remove('hide')
 }
-
-
-
 
 
 function doUploadImg(imgDataUrl, onSuccess) {
@@ -44,15 +40,15 @@ function doUploadImg(imgDataUrl, onSuccess) {
 }
 
 function loadImageFromInput(ev, onImageReady) {
-    var reader = new FileReader();
+    var reader = new FileReader()
     reader.onload = function (event) {
-        var img = new Image();
+        var img = new Image()
         img.onload = function () {
-            onImageReady(img);
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(ev.target.files[0]);
+            onImageReady(img)
+        }
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }
 
 function renderImg(img) {
