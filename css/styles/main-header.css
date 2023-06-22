@@ -3,8 +3,9 @@
 }
 
 .container {
-    margin: 0 auto;
+    max-width: 980px;
     width: 100%;
+    margin: 0 auto;
 }
 
 main {
@@ -59,9 +60,6 @@ main {
 .nav-li-selected {
     border-bottom: 5px solid;
 }
-
-/* .nav-li-selected a {
-} */
 
 img {
     width: 100%;

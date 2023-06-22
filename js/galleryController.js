@@ -1,10 +1,5 @@
 'use strict'
 
-// console.log('getImages()', getImages())
-// console.log('getMeme()', getMeme())
-
-
-
 function renderGallery(images) {
     var images = getImages()
     var strHTMLs = images.map(image => `
@@ -17,9 +12,7 @@ function renderGallery(images) {
 
 function onImgSelect(imgId) {
     setImg(imgId)
-    renderMeme()
-    hideGallery()
-    showMeme()
+    switchToMemeView()
 }
 
 function hideGallery() {

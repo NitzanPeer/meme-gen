@@ -5,28 +5,6 @@ var gCtx
 var gUserImage = null
 
 
-// var gMeme = {
-//     selectedImgId: 5, selectedLineIdx: 0,
-//     lines: [
-//         {
-//             txt: 'I sometimes eat Falafel',
-//             size: 36,
-//             font: 'Impact',
-//             color: 'white',
-//             textAlign: 'center'
-//         },
-//         {
-//             txt: 'Hello World',
-//             size: 45,
-//             font: 'Arial',
-//             color: 'white',
-//             textAlign: 'center'
-//         }
-//     ]
-// }
-
-
-
 function renderMeme() {
 
     const meme = getMeme()
@@ -36,6 +14,8 @@ function renderMeme() {
 
     const imageSrc = (gUserImage)?  gUserImage.src : `img/meme-imgs-square/${meme.selectedImgId}.jpg`
 
+    gUserImage = null
+
     const selectedLine = (meme.lines[meme.selectedLineIdx])? meme.lines[meme.selectedLineIdx] : meme.lines[0]
 
     const image = new Image()
@@ -44,32 +24,43 @@ function renderMeme() {
         gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
         meme.lines.forEach((line) => {
             const { txt, size, font, color, textAlign } = line
-            gCtx.fillStyle = color;
+            gCtx.fillStyle = color
             gCtx.font = `${parseInt(size)}px ${font}`
             gCtx.textAlign = textAlign
             gCtx.strokeStyle = 'black'
-            gCtx.lineJoin = 'round';
+            gCtx.lineJoin = 'round'
             gCtx.lineWidth = 8
             gCtx.strokeText(txt, gElCanvas.width / 2, 50)
             gCtx.fillText(txt, gElCanvas.width / 2, 50)
-            console.log('line', line)
-            console.log('selectedLine', selectedLine)
 
             if(line.id === selectedLine.id) {
-                var textWidth = gCtx.measureText(txt).width
-                // console.log('gCtx.measureText(txt)', gCtx.measureText(txt))
-                var textHeight = size
-                var borderX = gElCanvas.width / 2
-                var borderY = 15
-                var borderWidth = textWidth + 2 * 2
-                var borderHeight = textHeight + 2 * 2
-                gCtx.lineWidth = 2
-                gCtx.strokeRect(borderX, borderY, borderWidth, borderHeight)
+                drawSelectedLine(txt, size)
             }
         })
     }
+
 }
 
+function drawSelectedLine(txt, size){
+    var textWidth = gCtx.measureText(txt).width
+    var textHeight = size
+
+    var borderWidth = textWidth + 2 * 2
+    var borderHeight = textHeight + 4 * 2
+
+    var borderX = generateSelectedLineXPosition(borderWidth)
+    var borderY = 50 - gCtx.measureText(txt).fontBoundingBoxAscent
+
+    gCtx.lineWidth = 2
+    gCtx.strokeRect(borderX, borderY, borderWidth, borderHeight)
+
+    //save dimensions for onLineClick select:
+    setLineDimensions(borderX, borderY, borderWidth, borderHeight)
+}
+
+function generateSelectedLineXPosition(borderWidth){
+    return (gElCanvas.width / 2) - (borderWidth / 2)
+}
 
 
 function onDownloadCanvas(elLink) {
@@ -81,6 +72,7 @@ function onDownloadCanvas(elLink) {
 function onAddImage(ev) {
     loadImageFromInput(ev, function (img) {
         gUserImage = img
+        // setImage(img)
         renderMeme()
     })
 }
@@ -142,6 +134,7 @@ function onChangeAlign() {
 }
 
 function onAddNewLine() {
+    const meme = getMeme()
     const newLineId = addNewLine()
     setSelectedLineById(newLineId)
     document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
@@ -155,10 +148,25 @@ function onRemoveLine() {
 
 function onSwitchLine() {
     const meme = getMeme()
-    console.log('meme', meme)
     setNextSelectedLine()
     meme.selectedLineIdx
     document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
     renderMeme()
 }
 
+function onClickOnCanvas(ev) {
+    console.log(ev)
+
+    const offsetX = ev.offsetX
+    const offsetY = ev.offsetY
+
+    for (let i = 0; i < gMeme.lines.length; i++) {
+        const line = gMeme.lines[i];
+        if (offsetX >= line.x && offsetX <= line.x + line.width
+            && offsetY >= line.y && offsetY <= line.y + line.height)
+        {
+            setSelectedLineIdx(i)
+            renderMeme()
+        }
+    }
+}

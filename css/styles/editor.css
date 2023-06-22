@@ -1,12 +1,16 @@
+.meme-section {
+    justify-content: space-between;
+}
+
 canvas {
     max-width: 100%;
     height: auto;
 }
 
-.meme-section {
-    justify-content: center;
-    /* align-items: center; */
-    /* height: 100vh; */
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .btn {
@@ -15,18 +19,67 @@ canvas {
     border: 2px solid black;
     padding: 5px;
     font-family: sans-serif;
-    width: 210px;
-    height: 40px;
     text-align: center;
     cursor: pointer;
     background-color: white;
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 13.3px;
 }
 
+.btn:hover {
+    background-color: gray;
+}
 
-.btn {
-    cursor: pointer;
+#input-text {
+    width: 100%;
+    font-size: 30px;
+}
+
+.line-btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.line-btns-container .btn {
+    width: 80px;
+}
+
+.style-btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.option-btns-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.style-btns-container button,
+.style-btns-container select,
+.style-btns-container input {
+    height: 30px;
+}
+
+.inner-option-btns-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inner-option-btns-container .btn {
+    width: 80px;
+    min-height: 40px;
+}
+
+.inner-option-btns-container .download-btn {
+    line-height: 26px;
 }

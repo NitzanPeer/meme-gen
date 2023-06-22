@@ -4,7 +4,9 @@
 var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
 
 var gMeme = {
-    selectedImgId: 5, selectedLineIdx: 0,
+    selectedImgId: 5,
+    selectedImg: null,
+    selectedLineIdx: 0,
     lines: [
         {
             id: makeId(),
@@ -12,7 +14,11 @@ var gMeme = {
             size: 36,
             font: 'Impact',
             color: 'white',
-            textAlign: 'center'
+            textAlign: 'center',
+            x: null,
+            y: null,
+            width: null,
+            height: null
         },
         {
             id: makeId(),
@@ -20,7 +26,11 @@ var gMeme = {
             size: 45,
             font: 'Arial',
             color: 'white',
-            textAlign: 'center'
+            textAlign: 'center',
+            x: 50,
+            y: 40,
+            width: null,
+            height: null
         }
     ]
 }
@@ -75,6 +85,7 @@ function _createImage(imgId) {
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
 }
+
 function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
@@ -97,6 +108,8 @@ function setSelectedLineIdx(selectedLineIdx){
     gMeme.selectedLineIdx = selectedLineIdx
 }
 
+
+
 function changeSize(isIncrease) {
     var size = gMeme.lines[gMeme.selectedLineIdx].size
     size = (isIncrease)? size + 4 : size - 4
@@ -110,6 +123,7 @@ function setSelectedLineById(lineId) {
 }
 
 function setNextSelectedLine(){
+    console.log('gMeme', gMeme)
     console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     const lineIdx = (gMeme.selectedLineIdx <= gMeme.lines.length-1) ? gMeme.selectedLineIdx + 1 : 0
     setSelectedLineIdx(lineIdx)
@@ -143,10 +157,15 @@ function removeSelectedLine() {
     gMeme.selectedLineIdx--
 }
 
+function setLineDimensions(x, y, width, height) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    line.x = x
+    line.y = y
+    line.width = width
+    line.height = height
+}
 
-
-
-// A Feature
+// A Feature (in progress)
 function createRandomLineProperties() {
     return {
         id: makeId(),
