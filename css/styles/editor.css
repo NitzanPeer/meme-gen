@@ -9,7 +9,7 @@ canvas {
     /* height: 100vh; */
 }
 
-.download-btn, .share-btn, .clear-btn, .increase-fontsize-btn, .decrease-fontsize-btn, .create-line-btn {
+.btn {
     border-radius: 20px;
     text-decoration: none;
     border: 2px solid black;

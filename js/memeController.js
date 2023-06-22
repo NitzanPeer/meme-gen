@@ -36,7 +36,7 @@ function renderMeme() {
 
     const imageSrc = (gUserImage)?  gUserImage.src : `img/meme-imgs-square/${meme.selectedImgId}.jpg`
 
-    const selectedLine = meme.lines[gMeme.selectedLineIdx]
+    const selectedLine = (meme.lines[meme.selectedLineIdx])? meme.lines[meme.selectedLineIdx] : meme.lines[0]
 
     const image = new Image()
     image.src = imageSrc
@@ -47,18 +47,30 @@ function renderMeme() {
             gCtx.fillStyle = color;
             gCtx.font = `${parseInt(size)}px ${font}`
             gCtx.textAlign = textAlign
-            gCtx.strokeStyle = line.strokeStyle
+            gCtx.strokeStyle = 'black'
+            gCtx.lineJoin = 'round';
             gCtx.lineWidth = 8
             gCtx.strokeText(txt, gElCanvas.width / 2, 50)
             gCtx.fillText(txt, gElCanvas.width / 2, 50)
+            console.log('line', line)
+            console.log('selectedLine', selectedLine)
+
+            if(line.id === selectedLine.id) {
+                var textWidth = gCtx.measureText(txt).width
+                // console.log('gCtx.measureText(txt)', gCtx.measureText(txt))
+                var textHeight = size
+                var borderX = gElCanvas.width / 2
+                var borderY = 15
+                var borderWidth = textWidth + 2 * 2
+                var borderHeight = textHeight + 2 * 2
+                gCtx.lineWidth = 2
+                gCtx.strokeRect(borderX, borderY, borderWidth, borderHeight)
+            }
         })
     }
 }
 
-function onUpdateText(text) {
-    setLineTxt(text)
-    renderMeme()
-}
+
 
 function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
@@ -85,7 +97,7 @@ function onUploadCanvas() {
 }
 
 function onClearCanvas() {
-    removeLines()
+    removeAllLines()
     renderMeme()
 }
 
@@ -96,33 +108,57 @@ function showMeme() {
     showElement('.meme-section')
 }
 
+function onUpdateText(text) {
+    if(!getMeme().lines.length) return
+    setLineTxt(text)
+    renderMeme()
+}
+
 function onChangeSize(isIncrease) {
-    const meme = getMeme()
-    var size = meme.lines[gMeme.selectedLineIdx].size
-    size = (isIncrease)? size+4 : size-4
-    setSize(size)
+    if(!getMeme().lines.length) return
+    changeSize(isIncrease)
     renderMeme()
 }
 
 function onChangeColor() {
+    if(!getMeme().lines.length) return
     var color = document.querySelector('.change-fontclr-btn').value
     setColor(color)
     renderMeme()
 }
 
 function onChangeFont() {
+    if(!getMeme().lines.length) return
     const font = document.getElementById('font-dropDown').value
     setFont(font)
     renderMeme()
 }
 
 function onChangeAlign() {
+    if(!getMeme().lines.length) return
     const align = document.getElementById('align-dropDown').value
     setTextAlign(align)
     renderMeme()
 }
 
 function onAddNewLine() {
-    addNewLine()
+    const newLineId = addNewLine()
+    setSelectedLineById(newLineId)
+    document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
     renderMeme()
 }
+
+function onRemoveLine() {
+    removeSelectedLine()
+    renderMeme()
+}
+
+function onSwitchLine() {
+    const meme = getMeme()
+    console.log('meme', meme)
+    setNextSelectedLine()
+    meme.selectedLineIdx
+    document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
+    renderMeme()
+}
+

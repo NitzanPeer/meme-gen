@@ -1,9 +1,10 @@
 <!-- TODO:
 
-1. align left and right are switched, maybe because of css direction
-2. after the user uploads his own image, when going back to the gallery and
+1. bug - align left and right are switched, maybe because of css direction
+2. design - after the user uploads his own image, when going back to the gallery and
 picking a new img - it doesn't render. gUserImage should be reset to null at some point to fix that
-3. some bug with the strokeStyle, sometimes shows distorted lines
+3. text frame is not calc correctly
+4. bug - switch line comparison incorrect prob
 
 -->
 
@@ -18,7 +19,7 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
         <title>Meme Generator</title>
 
     </head>
-    <body class="main-layout" onload="renderGallery()">
+    <body class="main-layout" onload="renderGallery()" onkeyup="onMoveLine(event)">
 
         <header class="main-header">
             <div class="container flex space-between"></div>
@@ -49,14 +50,17 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
                     <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
 
                     <div>
-                        <div class="btn create-line-btn" onclick="onAddNewLine()">Add New Line</div>
+                        <div class="btn add-line-btn" onclick="onAddNewLine()">Add Line</div>
+                        <div class="btn remove-line-btn" onclick="onRemoveLine()">Remove Selected Line</div>
+                        <div class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</div>
+                        <div class="btn switch-line-btn" onclick="onSwitchLine()">Switch Line</div>
                     </div>
 
                     <div class="style-btns-container">
                         <div class="btn increase-fontsize-btn" onclick="onChangeSize(true)">A+</div>
                         <div class="btn decrease-fontsize-btn" onclick="onChangeSize(false)">A-</div>
                         <label>Font Color: </label>
-                        <input class="btn change-fontclr-btn" name="textColor" type="color" oninput="onChangeColor()"></input>
+                        <input class="change-fontclr-btn" name="textColor" type="color" oninput="onChangeColor()"></input>
                         <select id="font-dropDown" onchange="onChangeFont()">
                             <option value="Impact">Impact</option>
                             <option value="Arial">Arial</option>
@@ -68,7 +72,6 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
                             <option value="right">Right</option>
                             <option value="left">Left</option>
                         </select>
-                        <div class="btn clear-btn" onclick="onClearCanvas()">Clear</div>
                     </div>
 
                     <div class="option-btns-container">

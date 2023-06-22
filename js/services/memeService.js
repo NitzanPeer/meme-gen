@@ -7,6 +7,7 @@ var gMeme = {
     selectedImgId: 5, selectedLineIdx: 0,
     lines: [
         {
+            id: makeId(),
             txt: 'I sometimes eat Falafel',
             size: 36,
             font: 'Impact',
@@ -14,6 +15,7 @@ var gMeme = {
             textAlign: 'center'
         },
         {
+            id: makeId(),
             txt: 'Hello World',
             size: 45,
             font: 'Arial',
@@ -44,6 +46,11 @@ var gImages = [
     _createImage(17),
     _createImage(18)
 ]
+
+
+var gRandomMemes = []
+var gFonts = []
+
 
 function getMeme() {
     return gMeme
@@ -86,19 +93,67 @@ function strokeStyle(strokeStyle) {
 function setTextAlign(textAlign) {
     gMeme.lines[gMeme.selectedLineIdx].textAlign = textAlign
 }
+function setSelectedLineIdx(selectedLineIdx){
+    gMeme.selectedLineIdx = selectedLineIdx
+}
+
+function changeSize(isIncrease) {
+    var size = gMeme.lines[gMeme.selectedLineIdx].size
+    size = (isIncrease)? size + 4 : size - 4
+    setSize(size)
+}
+
+
+function setSelectedLineById(lineId) {
+    const lineIdx = gMeme.lines.findIndex(line => lineId === line.id)
+    setSelectedLineIdx(lineIdx)
+}
+
+function setNextSelectedLine(){
+    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
+    const lineIdx = (gMeme.selectedLineIdx <= gMeme.lines.length-1) ? gMeme.selectedLineIdx + 1 : 0
+    setSelectedLineIdx(lineIdx)
+}
+
+function getLineById(lineId) {
+    return gMeme.lines.find(line => lineId === line.id)
+}
 
 function addNewLine() {
+    const id = makeId()
     gMeme.lines.push(
         {
-            txt: 'New Line',
+            id: id,
+            txt: 'Your Text Here',
             size: 50,
             font: 'Impact',
             color: 'white',
             textAlign: 'center'
         }
     )
+    return id
 }
 
-function removeLines() {
+function removeAllLines() {
     gMeme.lines = []
+}
+
+function removeSelectedLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+    gMeme.selectedLineIdx--
+}
+
+
+
+
+// A Feature
+function createRandomLineProperties() {
+    return {
+        id: makeId(),
+        txt: 'Random Text',
+        size: getRandomInt(20, 50),
+        font: 'Impact',
+        color: getRandomColor(),
+        textAlign: 'center'
+    }
 }
