@@ -1,10 +1,9 @@
 <!-- TODO:
 
-1. bug - align left and right are switched, maybe because of css direction
-2. design - after the user uploads his own image, when going back to the gallery and
-picking a new img - it doesn't render. gUserImage should be reset to null at some point to fix that
-3. text frame is not calc correctly
-4. bug - switch line comparison incorrect prob
+1. need to set 2nd line in proper position
+2. bug - switch line comparison incorrect prob, error pops at times
+3. remove text frame on download / save
+4. onClick select line doesn't work on first click
 
 -->
 
@@ -22,15 +21,15 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
     <body class="main-layout" onload="renderGallery()" onkeyup="onMoveLine(event)">
 
         <header class="main-header">
-            <div class="container flex space-between"></div>
-            <div class="logo">MEMEGEN</div>
-            <nav class="main-nav-container">
-                <ul class="main-nav">
-                    <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
-                    <li><a href="#">Saved</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
+            <div class="container flex space-between align-center">
+                <div class="logo">MEMEGEN</div>
+                <nav class="main-nav-container">
+                    <ul class="main-nav">
+                        <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
+                        <li><a href="#">Saved</a></li>
+                    </ul>
+                </nav>
+            </div>
         </header>
 
 
@@ -40,46 +39,51 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
                 </ul>
             </section>
 
-            <section class="meme-section flex hide">
+            <section class="meme-section container flex hide">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="450" width="450"></canvas>
+                    <canvas id="my-canvas" height="450" width="450" onclick="onClickOnCanvas(event);"></canvas>
                 </div>
 
                 <div class="editor-container">
 
                     <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
 
-                    <div>
-                        <div class="btn add-line-btn" onclick="onAddNewLine()">Add Line</div>
-                        <div class="btn remove-line-btn" onclick="onRemoveLine()">Remove Selected Line</div>
-                        <div class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</div>
-                        <div class="btn switch-line-btn" onclick="onSwitchLine()">Switch Line</div>
+                    <div class="line-btns-container">
+                        <button class="btn add-line-btn" onclick="onAddNewLine()">Add Line</button>
+                        <button class="btn remove-line-btn" onclick="onRemoveLine()">Remove Selected Line</button>
+                        <button class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</button>
+                        <button class="btn switch-line-btn" onclick="onSwitchLine()">Switch Line</button>
                     </div>
 
                     <div class="style-btns-container">
-                        <div class="btn increase-fontsize-btn" onclick="onChangeSize(true)">A+</div>
-                        <div class="btn decrease-fontsize-btn" onclick="onChangeSize(false)">A-</div>
-                        <label>Font Color: </label>
-                        <input class="change-fontclr-btn" name="textColor" type="color" oninput="onChangeColor()"></input>
-                        <select id="font-dropDown" onchange="onChangeFont()">
-                            <option value="Impact">Impact</option>
-                            <option value="Arial">Arial</option>
-                            <option value="Times New Roman">Times New Roman</option>
-                            <option value="Comic Sans MS">Comic Sans MS</option>
-                        </select>
-                        <select id="align-dropDown" onchange="onChangeAlign()">
-                            <option value="center">Center</option>
-                            <option value="right">Right</option>
-                            <option value="left">Left</option>
-                        </select>
+                        <button class="btn increase-fontsize-btn" onclick="onChangeSize(true)">A+</button>
+                        <button class="btn decrease-fontsize-btn" onclick="onChangeSize(false)">A-</button>
+                        <div>
+                            <input class="change-fontclr-input" name="textColor" type="color" oninput="onChangeColor()"></input>
+                        </div>
+                        <div>
+                            <select id="font-dropDown" onchange="onChangeFont()">
+                                <option value="Impact">Impact</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Comic Sans MS">Comic Sans MS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="align-dropDown" onchange="onChangeAlign()">
+                                <option value="center">Center</option>
+                                <option value="left">Right</option>
+                                <option value="right">Left</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="option-btns-container">
-                        <input type="file" onchange="onAddImage(event)">
+                        <input class="add-img-input" type="file" onchange="onAddImage(event)">
 
-                        <div>
+                        <div class="inner-option-btns-container">
                             <a class="btn download-btn" href="#" onclick="onDownloadCanvas(this)" download="">Download</a>
-                            <div class="btn share-btn" onclick="onUploadCanvas()">Share</div>
+                            <button class="btn share-btn" onclick="onUploadCanvas()">Share</button>
                         </div>
                     </div>
                 </div>
@@ -94,5 +98,3 @@ picking a new img - it doesn't render. gUserImage should be reset to null at som
     <script src="js/main.js"></script>
     </body>
 </html>
-
-
