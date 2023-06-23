@@ -1,5 +1,6 @@
 .meme-section {
     justify-content: space-between;
+    background-image: linear-gradient(to right, #cecdcd, #fc045f);
 }
 
 canvas {
@@ -11,10 +12,11 @@ canvas {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    min-width: 10%;
 }
 
 .btn {
-    border-radius: 20px;
+    border-radius: 15px;
     text-decoration: none;
     border: 2px solid black;
     padding: 5px;
@@ -23,28 +25,33 @@ canvas {
     cursor: pointer;
     background-color: white;
     color: black;
-    font-size: 13.3px;
+    /* font-size: 13.3px; */
+    font-size: 30px;
 }
 
 .btn:hover {
     background-color: gray;
 }
 
-#input-text {
+
+#text-input {
     width: 100%;
     font-size: 30px;
+    border-radius: 10px;
+    border: 2px solid black;
 }
 
 .line-btns-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: normal;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .line-btns-container .btn {
-    width: 80px;
+    width: 60px;
+    margin: 20px;
 }
 
 .style-btns-container {
@@ -67,19 +74,66 @@ canvas {
     height: 30px;
 }
 
+#font-dropdown, #align-dropdown {
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
 .inner-option-btns-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: normal;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .inner-option-btns-container .btn {
-    width: 80px;
+    width: 100px;
     min-height: 40px;
+    margin: 20px;
+
 }
 
 .inner-option-btns-container .download-btn {
-    line-height: 26px;
+    line-height: 24px;
+}
+
+.share-btn div, .download-btn div {
+    font-size: 15px;
+}
+
+.change-fontclr-input {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.add-img-input {
+}
+
+.increase-fontsize-btn, .decrease-fontsize-btn {
+    width: 40px;
+    font-size: 20px;
+}
+
+.press-effect {
+    display: inline-block;
+    /* padding: 15px 25px; */
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2628aa;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #00000070;
+}
+
+.press-effect:hover {background-color: rgb(2, 82, 255)}
+
+.press-effect:active {
+    background-color: #2628aa;
+    box-shadow: 0 5px rgba(0, 0, 0, 0.301);
+    transform: translateY(4px);
 }

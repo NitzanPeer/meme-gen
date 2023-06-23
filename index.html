@@ -15,10 +15,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/8f823ddce3.js" crossorigin="anonymous"></script>
         <title>Meme Generator</title>
 
     </head>
-    <body class="main-layout" onload="renderGallery()" onkeyup="onMoveLine(event)">
+    <body class="main-layout" onload="switchToMemeView()" onkeyup="onMoveLine(event)">
 
         <header class="main-header">
             <div class="container flex space-between align-center">
@@ -46,23 +47,34 @@
 
                 <div class="editor-container">
 
-                    <input type="text" id="input-text" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
+                    <input type="text" id="text-input" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
 
                     <div class="line-btns-container">
-                        <button class="btn add-line-btn" onclick="onAddNewLine()">Add Line</button>
-                        <button class="btn remove-line-btn" onclick="onRemoveLine()">Remove Selected Line</button>
-                        <button class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</button>
-                        <button class="btn switch-line-btn" onclick="onSwitchLine()">Switch Line</button>
+
+                        <button class="btn press-effect add-line-btn" onclick="onAddNewLine()">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <button class="btn press-effect remove-line-btn" onclick="onRemoveLine()">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <button class="btn press-effect switch-line-btn" onclick="onSwitchLine()">
+                            <i class="fa-sharp fa-solid fa-repeat"></i>
+                        </button>
+                        <!-- <button class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</button> -->
                     </div>
 
                     <div class="style-btns-container">
-                        <button class="btn increase-fontsize-btn" onclick="onChangeSize(true)">A+</button>
-                        <button class="btn decrease-fontsize-btn" onclick="onChangeSize(false)">A-</button>
+                        <button class="btn press-effect increase-fontsize-btn" onclick="onChangeSize(true)">
+                            A+
+                        </button>
+                        <button class="btn press-effect decrease-fontsize-btn" onclick="onChangeSize(false)">
+                            A-
+                        </button>
                         <div>
                             <input class="change-fontclr-input" name="textColor" type="color" oninput="onChangeColor()"></input>
                         </div>
                         <div>
-                            <select id="font-dropDown" onchange="onChangeFont()">
+                            <select id="font-dropdown" onchange="onChangeFont()">
                                 <option value="Impact">Impact</option>
                                 <option value="Arial">Arial</option>
                                 <option value="Times New Roman">Times New Roman</option>
@@ -70,7 +82,7 @@
                             </select>
                         </div>
                         <div>
-                            <select id="align-dropDown" onchange="onChangeAlign()">
+                            <select id="align-dropdown" onchange="onChangeAlign()">
                                 <option value="center">Center</option>
                                 <option value="left">Right</option>
                                 <option value="right">Left</option>
@@ -78,12 +90,18 @@
                         </div>
                     </div>
 
-                    <div class="option-btns-container">
-                        <input class="add-img-input" type="file" onchange="onAddImage(event)">
+                    <input class="add-img-input" type="file" onchange="onAddImage(event)">
 
+                    <div class="option-btns-container">
                         <div class="inner-option-btns-container">
-                            <a class="btn download-btn" href="#" onclick="onDownloadCanvas(this)" download="">Download</a>
-                            <button class="btn share-btn" onclick="onUploadCanvas()">Share</button>
+                            <a class="btn press-effect download-btn" href="#" onclick="onDownloadCanvas(this)" download="">
+                                <i class="fa-solid fa-circle-down"></i>
+                                <div>Download</div>
+                            </a>
+                            <button class="btn press-effect share-btn" onclick="onUploadCanvas()">
+                                <i class="fa-solid fa-share-nodes"></i>
+                                <div>Share</div>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -114,21 +114,21 @@ function onChangeSize(isIncrease) {
 
 function onChangeColor() {
     if(!getMeme().lines.length) return
-    var color = document.querySelector('.change-fontclr-btn').value
+    const color = document.querySelector('.change-fontclr-input').value
     setColor(color)
     renderMeme()
 }
 
 function onChangeFont() {
     if(!getMeme().lines.length) return
-    const font = document.getElementById('font-dropDown').value
+    const font = document.getElementById('font-dropdown').value
     setFont(font)
     renderMeme()
 }
 
 function onChangeAlign() {
     if(!getMeme().lines.length) return
-    const align = document.getElementById('align-dropDown').value
+    const align = document.getElementById('align-dropdown').value
     setTextAlign(align)
     renderMeme()
 }
@@ -137,7 +137,7 @@ function onAddNewLine() {
     const meme = getMeme()
     const newLineId = addNewLine()
     setSelectedLineById(newLineId)
-    document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
+    document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
     renderMeme()
 }
 
@@ -150,7 +150,7 @@ function onSwitchLine() {
     const meme = getMeme()
     setNextSelectedLine()
     meme.selectedLineIdx
-    document.getElementById('input-text').value = meme.lines[meme.selectedLineIdx].txt
+    document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
     renderMeme()
 }
 
