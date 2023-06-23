@@ -6,3 +6,12 @@
     padding: 20px;
     margin: 0 auto;
 }
+
+.img-gallery img {
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+.img-gallery img:hover {
+    border: 6px solid rgba(0, 0, 0);
+}

@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-image: var(--bgImgMain);
+    min-width: 350px;
+}
+
+/* fixes a bug with mobile view (some element might have a size of over 100% */
+html,body{
+    overflow-x: hidden;
+}
+
+main {
+    background-image: var(--bgImgMain)
+}
+
+
+@media (max-width: 740px) {
+    .meme-section {
+        flex-direction: column;
+    }
+
+    .canvas-container {
+        text-align: center;
+    }
+
+    .canvas-container,
+    .editor-container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 320px) {
+    .meme-section {
+      min-width: 320px;
+    }
+}
+

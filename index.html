@@ -1,9 +1,6 @@
 <!-- TODO:
 
-1. need to set 2nd line in proper position
-2. bug - switch line comparison incorrect prob, error pops at times
-3. remove text frame on download / save
-4. onClick select line doesn't work on first click
+1. remove text frame on download / save
 
 -->
 
@@ -19,11 +16,12 @@
         <title>Meme Generator</title>
 
     </head>
-    <body class="main-layout" onload="switchToMemeView()" onkeyup="onMoveLine(event)">
+    <!-- <body class="main-layout" onload="renderGallery()"> -->
+    <body class="main-layout" onload="switchToMemeView()">
 
         <header class="main-header">
-            <div class="container flex space-between align-center">
-                <div class="logo">MEMEGEN</div>
+            <div class="header-container flex space-between align-center">
+                <div class="logo">SALAMTAK MEME GENERATOR</div>
                 <nav class="main-nav-container">
                     <ul class="main-nav">
                         <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
@@ -34,7 +32,7 @@
         </header>
 
 
-        <div>
+        <main>
             <section class="img-gallery-section">
                 <ul class="img-gallery">
                 </ul>
@@ -42,7 +40,7 @@
 
             <section class="meme-section container flex hide">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="450" width="450" onclick="onClickOnCanvas(event);"></canvas>
+                    <canvas id="my-canvas" height="450" width="450" onclick="onClickOnCanvas(event)"></canvas>
                 </div>
 
                 <div class="editor-container">
@@ -60,6 +58,9 @@
                         <button class="btn press-effect switch-line-btn" onclick="onSwitchLine()">
                             <i class="fa-sharp fa-solid fa-repeat"></i>
                         </button>
+                        <button class="btn press-effect random-btn" title="Random" onclick="onRandomMeme()">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
                         <!-- <button class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</button> -->
                     </div>
 
@@ -71,14 +72,14 @@
                             A-
                         </button>
                         <div>
-                            <input class="change-fontclr-input" name="textColor" type="color" oninput="onChangeColor()"></input>
+                            <input class="change-fontclr-input" name="textColor" type="color" value="" oninput="onChangeColor()"></input>
                         </div>
                         <div>
                             <select id="font-dropdown" onchange="onChangeFont()">
                                 <option value="Impact">Impact</option>
                                 <option value="Arial">Arial</option>
-                                <option value="Times New Roman">Times New Roman</option>
-                                <option value="Comic Sans MS">Comic Sans MS</option>
+                                <option value="Times New Roman">Times</option>
+                                <option value="Comic Sans MS">Comic</option>
                             </select>
                         </div>
                         <div>
@@ -106,8 +107,15 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </main>
 
+        <footer class="main-footer">
+            <div class="footer-container flex space-between align-center direction-column">
+                <h3>© 2023 SALAMTAK MEME GENERATOR  -  All Rights Reserved</h3>
+                <ul class="social-links flex clean-list">
+                </ul>
+            </div>
+        </footer>
 
     <script src="js/services/utilService.js"></script>
     <script src="js/services/memeService.js"></script>

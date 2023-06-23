@@ -7,6 +7,7 @@ var gUserImage = null
 
 function renderMeme() {
 
+
     const meme = getMeme()
 
     gElCanvas = document.querySelector('canvas')
@@ -21,41 +22,43 @@ function renderMeme() {
     const image = new Image()
     image.src = imageSrc
     image.onload = function () {
+
         gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
         meme.lines.forEach((line) => {
-            const { txt, size, font, color, textAlign } = line
+            const { txt, size, font, color, textAlign, x, y} = line
             gCtx.fillStyle = color
             gCtx.font = `${parseInt(size)}px ${font}`
             gCtx.textAlign = textAlign
             gCtx.strokeStyle = 'black'
             gCtx.lineJoin = 'round'
             gCtx.lineWidth = 8
-            gCtx.strokeText(txt, gElCanvas.width / 2, 50)
-            gCtx.fillText(txt, gElCanvas.width / 2, 50)
+
+            gCtx.strokeText(txt, x, y)
+            gCtx.fillText(txt, x, y)
 
             if(line.id === selectedLine.id) {
-                drawSelectedLine(txt, size)
+                drawSelectedLine(txt, size, x, y)
             }
         })
     }
-
 }
 
-function drawSelectedLine(txt, size){
+function drawSelectedLine(txt, size, x, y){
     var textWidth = gCtx.measureText(txt).width
     var textHeight = size
 
-    var borderWidth = textWidth + 2 * 2
-    var borderHeight = textHeight + 4 * 2
+    // padding = 8
+    var borderWidth = textWidth + 8
+    var borderHeight = textHeight + 8
 
     var borderX = generateSelectedLineXPosition(borderWidth)
     var borderY = 50 - gCtx.measureText(txt).fontBoundingBoxAscent
 
     gCtx.lineWidth = 2
-    gCtx.strokeRect(borderX, borderY, borderWidth, borderHeight)
+    gCtx.strokeRect(borderX, y-35, borderWidth, borderHeight)
 
     //save dimensions for onLineClick select:
-    setLineDimensions(borderX, borderY, borderWidth, borderHeight)
+    setLineDimensions(x, y, borderWidth, borderHeight)
 }
 
 function generateSelectedLineXPosition(borderWidth){
@@ -137,7 +140,7 @@ function onAddNewLine() {
     const meme = getMeme()
     const newLineId = addNewLine()
     setSelectedLineById(newLineId)
-    document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
+    updateInputText(meme)
     renderMeme()
 }
 
@@ -148,25 +151,47 @@ function onRemoveLine() {
 
 function onSwitchLine() {
     const meme = getMeme()
+    if(!meme.lines.length) return
     setNextSelectedLine()
     meme.selectedLineIdx
-    document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
+    updateInputText(meme)
     renderMeme()
 }
 
-function onClickOnCanvas(ev) {
-    console.log(ev)
+function onClickOnCanvas( { offsetX, offsetY }) {
+    console.log('offsetX', offsetX)
+    console.log('offsetY', offsetY)
+    console.log('gMeme.lines', gMeme.lines)
 
-    const offsetX = ev.offsetX
-    const offsetY = ev.offsetY
+    const meme = getMeme()
 
-    for (let i = 0; i < gMeme.lines.length; i++) {
-        const line = gMeme.lines[i];
-        if (offsetX >= line.x && offsetX <= line.x + line.width
-            && offsetY >= line.y && offsetY <= line.y + line.height)
+    // const offsetX = ev.offsetX
+    // const offsetY = ev.offsetY
+
+    for (var i = 0; i < meme.lines.length; i++) {
+        const line = meme.lines[i];
+        if (
+            offsetX > (line.x - (line.width / 2)) &&
+            offsetX < (line.x + (line.width / 2)) &&
+            offsetY > (line.y - line.height) &&
+            offsetY < (line.y + 12)
+            )
         {
             setSelectedLineIdx(i)
+            updateInputText(getMeme())
             renderMeme()
+            return
         }
     }
+}
+
+function onRandomMeme() {
+    createRandomMeme()
+    setImg(getRandomInt(1, 18))
+    renderMeme()
+}
+
+
+function updateInputText(meme) {
+    document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
 }

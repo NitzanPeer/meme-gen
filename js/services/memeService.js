@@ -1,11 +1,23 @@
 'use strict'
 
+const STORAGEKEY = 'saved_memes'
 
+var gSavedMemes = []
 var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
+
+var gFonts = ['Impact', 'Arial', 'Times New Roman', 'Comic Sans MS']
+var gWords = ['Nechmaaaad', 'Boooom.. Lo Oved', 'Otzmati', 'Pashuti', 'Magniiiiv']
+var gPos = [
+    {x: 280, y: 325}, {x: 170, y: 140}, {x: 210, y: 260},
+    {x: 110, y: 200}, {x: 240, y: 220}, {x: 130, y: 180},
+    {x: 130, y: 240}, {x: 260, y: 190}, {x: 150, y: 190},
+    {x: 140, y: 350}, {x: 270, y: 380}, {x: 150, y: 310}
+    ]
+
+var gYpos = 200
 
 var gMeme = {
     selectedImgId: 5,
-    selectedImg: null,
     selectedLineIdx: 0,
     lines: [
         {
@@ -15,22 +27,24 @@ var gMeme = {
             font: 'Impact',
             color: 'white',
             textAlign: 'center',
-            x: null,
-            y: null,
-            width: null,
-            height: null
+            x: 225,
+            y: 50,
+            width: 350,
+            height: 36,
+            isDrag: false
         },
         {
             id: makeId(),
-            txt: 'Hello World',
-            size: 45,
-            font: 'Arial',
+            txt: 'Omnomnomnom',
+            size: 36,
+            font: 'Impact',
             color: 'white',
             textAlign: 'center',
-            x: 50,
-            y: 40,
-            width: null,
-            height: null
+            x: 225,
+            y: 400,
+            width: 200,
+            height: 36,
+            isDrag: false
         }
     ]
 }
@@ -98,9 +112,6 @@ function setFont(font) {
 function setColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
 }
-function strokeStyle(strokeStyle) {
-    gMeme.lines[gMeme.selectedLineIdx].strokeStyle = strokeStyle
-}
 function setTextAlign(textAlign) {
     gMeme.lines[gMeme.selectedLineIdx].textAlign = textAlign
 }
@@ -116,16 +127,15 @@ function changeSize(isIncrease) {
     setSize(size)
 }
 
-
 function setSelectedLineById(lineId) {
     const lineIdx = gMeme.lines.findIndex(line => lineId === line.id)
     setSelectedLineIdx(lineIdx)
 }
 
 function setNextSelectedLine(){
-    console.log('gMeme', gMeme)
-    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
-    const lineIdx = (gMeme.selectedLineIdx <= gMeme.lines.length-1) ? gMeme.selectedLineIdx + 1 : 0
+    // console.log('gMeme', gMeme)
+    // console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
+    const lineIdx = (gMeme.selectedLineIdx < gMeme.lines.length-1) ? gMeme.selectedLineIdx + 1 : 0
     setSelectedLineIdx(lineIdx)
 }
 
@@ -139,10 +149,14 @@ function addNewLine() {
         {
             id: id,
             txt: 'Your Text Here',
-            size: 50,
+            size: 36,
             font: 'Impact',
             color: 'white',
-            textAlign: 'center'
+            textAlign: 'center',
+            x: 225,
+            y: gYpos++,
+            width: gCtx.measureText('Your Text Here').fontBoundingBoxAscent,
+            height: 36
         }
     )
     return id
@@ -153,11 +167,15 @@ function removeAllLines() {
 }
 
 function removeSelectedLine() {
+    if(!gMeme.lines.length) return
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx--
+    if(gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 0
 }
 
 function setLineDimensions(x, y, width, height) {
+    // console.log('gMeme.lines', gMeme.lines)
+    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     const line = gMeme.lines[gMeme.selectedLineIdx]
     line.x = x
     line.y = y
@@ -165,14 +183,40 @@ function setLineDimensions(x, y, width, height) {
     line.height = height
 }
 
-// A Feature (in progress)
+
+// Feature A
 function createRandomLineProperties() {
+    var randPos = getRandomPos(gPos)
+    var randSize = getRandomInt(20, 50)
+
     return {
         id: makeId(),
-        txt: 'Random Text',
-        size: getRandomInt(20, 50),
-        font: 'Impact',
+        txt: getRandomWord(gWords),
+        size: randSize,
+        font: getRandomFont(gFonts),
         color: getRandomColor(),
-        textAlign: 'center'
+        textAlign: 'center',
+        x: randPos.x,
+        y: randPos.y,
+        width: 350,
+        height: randSize,
     }
+}
+
+function createRandomMeme() {
+    const lineNum = getRandomInt(2, 3)
+    for (var i = 0; i < lineNum; i++) {
+        console.log('createRandomLineProperties()', createRandomLineProperties())
+        gMeme.lines.push(createRandomLineProperties())
+    }
+}
+
+function getRandImg() {
+    return getRandomImg(gImages).src
+}
+
+
+// Feature B (in progress)
+function saveMeme() {
+    saveToStorage(STORAGEKEY, gSavedMemes)
 }
