@@ -37,6 +37,19 @@ main {
     .editor-container {
         width: 100%;
     }
+
+    .saved-memes img,
+    .img-gallery img {
+        max-width: 100%;
+    }
+
+    .previous-page-btn {
+        margin-inline-start: 0;
+    }
+
+    .next-page-btn {
+        margin-inline-end: 0;
+    }
 }
 
 @media (min-width: 320px) {

@@ -2,8 +2,6 @@
 
 function onInit() {
     renderGallery()
-    addMouseListeners()
-    addTouchListeners()
 }
 
 function switchToGalleryView() {
@@ -20,11 +18,12 @@ function switchToMemeView() {
     hideSavedMemes()
     renderMeme()
     renderEmojiLine()
+    addMouseListeners()
 }
 
 function switchToSavedMemesView() {
-    showSavedMemes()
     hideGallery()
+    showSavedMemes()
     hideMeme()
     renderSavedMemes()
 }

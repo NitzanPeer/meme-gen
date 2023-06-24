@@ -10,6 +10,7 @@
 .saved-memes img {
     border: 1px black solid;
     border-radius: 10px;
+    max-width: 200px;
 }
 
 .saved-memes img:hover {

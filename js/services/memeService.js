@@ -30,37 +30,39 @@ var gPos = [
 
 var gYpos = 200
 
+var default_lines = [
+    {
+        id: makeId(),
+        txt: 'I sometimes eat Falafel',
+        size: 36,
+        font: 'Impact',
+        color: 'white',
+        textAlign: 'center',
+        x: 225,
+        y: 50,
+        width: 350,
+        height: 36,
+    },
+    {
+        id: makeId(),
+        txt: 'Omnomnomnom',
+        size: 36,
+        font: 'Impact',
+        color: 'white',
+        textAlign: 'center',
+        x: 225,
+        y: 400,
+        width: 200,
+        height: 36,
+    }
+]
+
 var gMeme = {
     id: null,
     selectedImgURL: null,
     selectedImgId: 5,
     selectedLineIdx: 0,
-    lines: [
-        {
-            id: makeId(),
-            txt: 'I sometimes eat Falafel',
-            size: 36,
-            font: 'Impact',
-            color: 'white',
-            textAlign: 'center',
-            x: 225,
-            y: 50,
-            width: 350,
-            height: 36,
-        },
-        {
-            id: makeId(),
-            txt: 'Omnomnomnom',
-            size: 36,
-            font: 'Impact',
-            color: 'white',
-            textAlign: 'center',
-            x: 225,
-            y: 400,
-            width: 200,
-            height: 36,
-        }
-    ]
+    lines: JSON.parse(JSON.stringify(default_lines))
 }
 
 
@@ -111,9 +113,11 @@ function _createImage(imgId) {
 }
 
 function setImg(imgId) {
+    console.log('setImg', imgId)
     gMeme.selectedImgId = imgId
 }
 function setImgURL(imgId) {
+    console.log('setImgURL', imgId)
     gMeme.selectedImgURL = `img/meme-imgs-square/${imgId}.jpg`
 }
 function setLineTxt(text) {
@@ -134,7 +138,13 @@ function setTextAlign(textAlign) {
 function setSelectedLineIdx(selectedLineIdx){
     gMeme.selectedLineIdx = selectedLineIdx
 }
+function setDefaultLines(){
+    gMeme.lines = cloneObj(default_lines)
+}
 
+function setLines(lines){
+    gMeme.lines = lines
+}
 
 
 function changeSize(isIncrease) {
@@ -242,7 +252,7 @@ function getEmojis() {
 }
 
 function saveMeme() {
-    gMeme.id = makeId()
+    // gMeme.id = makeId()
     var savedMeme = JSON.parse(JSON.stringify(gMeme))
     gSavedMemes.push(savedMeme)
     saveToStorage(STORAGE_KEY, gSavedMemes)
@@ -252,4 +262,10 @@ function getMemes() {
     var memes = loadFromStorage(STORAGE_KEY)
     if (!memes) memes = []
     return memes
+}
+
+function getSavedMemeByIndex(savedMemeIndex){
+    var memes = getMemes()
+
+    return memes[savedMemeIndex]
 }

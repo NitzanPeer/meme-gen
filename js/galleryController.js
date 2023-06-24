@@ -14,6 +14,7 @@ function renderGallery() {
 function onImgSelect(imgId) {
     setImg(imgId)
     setImgURL(imgId)
+    setDefaultLines()
     switchToMemeView()
 }
 

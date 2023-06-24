@@ -10,6 +10,7 @@
 .img-gallery img {
     border: 1px black solid;
     border-radius: 10px;
+    max-width: 200px;
 }
 
 .img-gallery img:hover {

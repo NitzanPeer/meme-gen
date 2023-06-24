@@ -16,7 +16,6 @@ function showElement(selector) {
     document.querySelector(selector).classList.remove('hide')
 }
 
-
 function doUploadImg(imgDataUrl, onSuccess) {
     const formData = new FormData()
     formData.append('img', imgDataUrl)
@@ -94,4 +93,7 @@ function getRandomPos(pos) {
 function getRandomImg(imgs) {
     console.log(imgs[getRandomInt(0, 17)])
     return imgs[getRandomInt(0, 17)]
+}
+function cloneObj(obj){
+    return JSON.parse(JSON.stringify(obj))
 }

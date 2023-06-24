@@ -5,17 +5,19 @@ function renderSavedMemes() {
     const memes = getMemes()
     console.log('memes', memes)
     if (!memes.length) return
-    var strHTMLs = memes.map(meme => `
+    var strHTMLs = memes.map((meme, index) => `
         <li class="saved-meme">
-            <a href="#" onclick="onSavedSelect('${meme.id}')"><img src="${meme.selectedImgURL}" alt=""></a>
+            <a href="#" onclick="onSavedSelect('${meme.selectedImgId}', ${index})"><img src="${meme.selectedImgURL}" alt=""></a>
         </li>
     `)
     document.querySelector('.saved-memes').innerHTML = strHTMLs.join('')
 }
 
-function onSavedSelect(imgId) {
+function onSavedSelect(imgId, index) {
     setImg(imgId)
     setImgURL(imgId)
+    var savedMeme = getSavedMemeByIndex(index)
+    setLines(savedMeme.lines)
     switchToMemeView()
 }
 

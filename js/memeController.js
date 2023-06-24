@@ -154,32 +154,6 @@ function onSwitchLine() {
     renderMeme()
 }
 
-function onClickOnCanvas( { offsetX, offsetY }) {
-    console.log('offsetX', offsetX)
-    console.log('offsetY', offsetY)
-    console.log('gMeme.lines', gMeme.lines)
-
-    const meme = getMeme()
-
-    // const offsetX = ev.offsetX
-    // const offsetY = ev.offsetY
-
-    for (var i = 0; i < meme.lines.length; i++) {
-        const line = meme.lines[i];
-        if (
-            offsetX > (line.x - (line.width / 2)) &&
-            offsetX < (line.x + (line.width / 2)) &&
-            offsetY > (line.y - line.height) &&
-            offsetY < (line.y + 12)
-            )
-        {
-            setSelectedLineIdx(i)
-            updateInputText(getMeme())
-            renderMeme()
-            return
-        }
-    }
-}
 
 function onRandomMeme() {
     createRandomMeme()
@@ -195,12 +169,6 @@ function addMouseListeners() {
     gElCanvas.addEventListener('mousedown', onMouseDown)
     gElCanvas.addEventListener('mousemove', onMouseMove)
     gElCanvas.addEventListener('mouseup', onMouseUp)
-}
-
-function addTouchListeners() {
-    gElCanvas.addEventListener('touchstart', onMouseDown)
-    gElCanvas.addEventListener('touchmove', onMouseMove)
-    gElCanvas.addEventListener('touchend', onMouseUp)
 }
 
 function onMouseDown(event) {
