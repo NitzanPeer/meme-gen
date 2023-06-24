@@ -1,9 +1,9 @@
 <!-- TODO:
 
-1. remove text frame on download / save
+1. Need to remove text frame on download / save
+2. Mobile touch events not working. Probably stop prop / prevent defualt. Might be related to z-index.
 
 -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +16,7 @@
         <title>Meme Generator</title>
 
     </head>
-    <!-- <body class="main-layout" onload="renderGallery()"> -->
-    <body class="main-layout" onload="switchToMemeView()">
+    <body onload="onInit()">
 
         <header class="main-header">
             <div class="header-container flex space-between align-center">
@@ -31,7 +30,6 @@
             </div>
         </header>
 
-
         <main>
             <section class="img-gallery-section">
                 <ul class="img-gallery">
@@ -40,7 +38,7 @@
 
             <section class="meme-section container flex hide">
                 <div class="canvas-container">
-                    <canvas id="my-canvas" height="450" width="450" onclick="onClickOnCanvas(event)"></canvas>
+                    <canvas id="my-canvas" height="450" width="450"></canvas>
                 </div>
 
                 <div class="editor-container">
@@ -48,7 +46,6 @@
                     <input type="text" id="text-input" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
 
                     <div class="line-btns-container">
-
                         <button class="btn press-effect add-line-btn" onclick="onAddNewLine()">
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -58,10 +55,9 @@
                         <button class="btn press-effect switch-line-btn" onclick="onSwitchLine()">
                             <i class="fa-sharp fa-solid fa-repeat"></i>
                         </button>
-                        <button class="btn press-effect random-btn" title="Random" onclick="onRandomMeme()">
+                        <button class="btn press-effect random-btn" title="Random Meme" onclick="onRandomMeme()">
                             <i class="fa-solid fa-shuffle"></i>
                         </button>
-                        <!-- <button class="btn clear-btn" onclick="onClearCanvas()">Remove All Lines</button> -->
                     </div>
 
                     <div class="style-btns-container">
@@ -91,10 +87,28 @@
                         </div>
                     </div>
 
-                    <input class="add-img-input" type="file" onchange="onAddImage(event)">
+                    <div class="emoji-row-container  flex space-between align-center">
+                        <button class=previous-page-btn data-trans="back" onclick="onChangePage(-1)">
+                            <i class="fa-solid fa-caret-left"></i>
+                        </button>
+                            <table>
+                                <tbody>
+                                        <tr>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        <button class=next-page-btn data-trans="next" onclick="onChangePage(1)">
+                            <i class="fa-solid fa-caret-right"></i>
+                        </button>
+                    </div>
 
                     <div class="option-btns-container">
                         <div class="inner-option-btns-container">
+                            <input class="add-img-input" id="fileInput" type="file" onchange="onAddImage(event)">
+                            <label class="add-img-input-label press-effect" for="fileInput" id="fileLabel">
+                                <i class="fa-solid fa-upload"></i>
+                                <div>Upload Template</div>
+                            </label>
                             <a class="btn press-effect download-btn" href="#" onclick="onDownloadCanvas(this)" download="">
                                 <i class="fa-solid fa-circle-down"></i>
                                 <div>Download</div>

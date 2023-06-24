@@ -1,10 +1,24 @@
 'use strict'
 
-const STORAGEKEY = 'saved_memes'
+const STORAGE_KEY = 'memeDB'
+
+const PAGE_SIZE = 5
+var gPageIdx = 0
+var gLastPageIdx
 
 var gSavedMemes = []
-var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
 
+// var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
+
+var gEmojis = [
+    {txt: '😀'}, {txt: '😁'}, {txt: '😍'}, {txt: '😶'},
+    {txt: '😴'}, {txt: '😙'}, {txt: '🥴'}, {txt: '😐'},
+    {txt: '🤨'}, {txt: '🤣'}, {txt: '🙄'}, {txt: '😎'},
+    {txt: '🐒'}, {txt: '🐬'}, {txt: '🐌'}, {txt: '⭐'},
+    {txt: '⚡'}, {txt: '❄'}, {txt: '🔥'}, {txt: '💧'},
+    {txt: '🦽'}, {txt: '🍺'}, {txt: '🥝'}, {txt: '🍆'},
+    {txt: '🥑'}, {txt: '(⌐■_■)'}, {txt: 'ಠ_ಠ'},
+]
 var gFonts = ['Impact', 'Arial', 'Times New Roman', 'Comic Sans MS']
 var gWords = ['Nechmaaaad', 'Boooom.. Lo Oved', 'Otzmati', 'Pashuti', 'Magniiiiv']
 var gPos = [
@@ -12,7 +26,7 @@ var gPos = [
     {x: 110, y: 200}, {x: 240, y: 220}, {x: 130, y: 180},
     {x: 130, y: 240}, {x: 260, y: 190}, {x: 150, y: 190},
     {x: 140, y: 350}, {x: 270, y: 380}, {x: 150, y: 310}
-    ]
+]
 
 var gYpos = 200
 
@@ -31,7 +45,6 @@ var gMeme = {
             y: 50,
             width: 350,
             height: 36,
-            isDrag: false
         },
         {
             id: makeId(),
@@ -44,7 +57,6 @@ var gMeme = {
             y: 400,
             width: 200,
             height: 36,
-            isDrag: false
         }
     ]
 }
@@ -90,6 +102,7 @@ function getImageById(imgId) {
 
 function _createImage(imgId) {
     var imgUrl = `img/meme-imgs-square/${imgId}.jpg`
+    // var imgUrl = `img/meme-imgs-various/${imgId}.jpg`
     return {
         id: imgId,
         imgUrl
@@ -133,8 +146,6 @@ function setSelectedLineById(lineId) {
 }
 
 function setNextSelectedLine(){
-    // console.log('gMeme', gMeme)
-    // console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     const lineIdx = (gMeme.selectedLineIdx < gMeme.lines.length-1) ? gMeme.selectedLineIdx + 1 : 0
     setSelectedLineIdx(lineIdx)
 }
@@ -143,19 +154,20 @@ function getLineById(lineId) {
     return gMeme.lines.find(line => lineId === line.id)
 }
 
-function addNewLine() {
+function addNewLine(txt) {
     const id = makeId()
+
     gMeme.lines.push(
         {
             id: id,
-            txt: 'Your Text Here',
+            txt,
             size: 36,
             font: 'Impact',
             color: 'white',
             textAlign: 'center',
             x: 225,
             y: gYpos++,
-            width: gCtx.measureText('Your Text Here').fontBoundingBoxAscent,
+            width: gCtx.measureText(txt).width,
             height: 36
         }
     )
@@ -174,7 +186,6 @@ function removeSelectedLine() {
 }
 
 function setLineDimensions(x, y, width, height) {
-    // console.log('gMeme.lines', gMeme.lines)
     console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     const line = gMeme.lines[gMeme.selectedLineIdx]
     line.x = x
@@ -182,7 +193,6 @@ function setLineDimensions(x, y, width, height) {
     line.width = width
     line.height = height
 }
-
 
 // Feature A
 function createRandomLineProperties() {
@@ -206,7 +216,6 @@ function createRandomLineProperties() {
 function createRandomMeme() {
     const lineNum = getRandomInt(2, 3)
     for (var i = 0; i < lineNum; i++) {
-        console.log('createRandomLineProperties()', createRandomLineProperties())
         gMeme.lines.push(createRandomLineProperties())
     }
 }
@@ -215,8 +224,22 @@ function getRandImg() {
     return getRandomImg(gImages).src
 }
 
+function changePage(change) {
+    gPageIdx += change
+
+    if (gPageIdx * PAGE_SIZE >= gEmojis.length) gPageIdx = 0
+    if (gPageIdx < 0) gPageIdx = gLastPageIdx
+}
+
+function getEmojis() {
+    const emojis = gEmojis
+    const startIdx = gPageIdx * PAGE_SIZE
+    gLastPageIdx = parseInt(emojis.length / PAGE_SIZE)
+    return emojis.slice(startIdx, startIdx + PAGE_SIZE)
+}
 
 // Feature B (in progress)
 function saveMeme() {
-    saveToStorage(STORAGEKEY, gSavedMemes)
+    saveToStorage(STORAGE_KEY, gSavedMemes)
 }
+

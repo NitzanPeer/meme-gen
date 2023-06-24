@@ -18,6 +18,7 @@ function onImgSelect(imgId) {
 function hideGallery() {
     hideElement('.img-gallery-section')
 }
+
 function showGallery() {
    showElement('.img-gallery-section')
 }

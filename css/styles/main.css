@@ -2,14 +2,20 @@
     box-sizing: border-box;
 }
 
+/* fixes a bug with mobile view (some element might have a size of over 100% */
+html,body {
+    overflow-x: hidden;
+}
+
 html {
     background-image: var(--bgImgMain);
     min-width: 350px;
 }
 
-/* fixes a bug with mobile view (some element might have a size of over 100% */
-html,body{
-    overflow-x: hidden;
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
@@ -17,9 +23,10 @@ main {
 }
 
 
-@media (max-width: 740px) {
+@media (max-width: 830px) {
     .meme-section {
         flex-direction: column;
+        margin-block-start: auto;
     }
 
     .canvas-container {
@@ -37,4 +44,3 @@ main {
       min-width: 320px;
     }
 }
-

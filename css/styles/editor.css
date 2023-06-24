@@ -1,7 +1,11 @@
 .meme-section {
-    justify-content: center;
+    /* flex: 1; */
     border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-block-start: 95px;
 }
+
 
 canvas {
     max-width: 100%;
@@ -12,10 +16,13 @@ canvas {
 }
 
 .editor-container {
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     min-width: 10%;
+    background-color: rgba(0, 0, 0, 0.295);
+    border-radius: 15px;
 }
 
 .btn {
@@ -28,7 +35,6 @@ canvas {
     cursor: pointer;
     background-color: white;
     color: black;
-    /* font-size: 13.3px; */
     font-size: 30px;
 }
 
@@ -48,8 +54,8 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: normal;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
 }
 
 .line-btns-container .btn {
@@ -59,15 +65,13 @@ canvas {
 
 .style-btns-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: normal;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
 }
 
 .option-btns-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -86,25 +90,28 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: normal;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+    font-family: sans-serif;
 }
 
 .inner-option-btns-container .btn {
     width: 100px;
     min-height: 40px;
-    margin: 20px;
-
+    margin: 15px;
 }
 
 .inner-option-btns-container .download-btn {
     line-height: 24px;
 }
 
-.share-btn div, .download-btn div {
+.share-btn div, .download-btn div, .add-img-input-label div {
     font-size: 15px;
 }
 
+.add-img-input-label div {
+    margin-block-start: 5px;
+}
 
 
 .change-fontclr-input {
@@ -156,4 +163,52 @@ canvas {
     width: 40px;
     font-size: 20px;
     background-color: rgb(0, 0, 0);
+}
+
+.add-img-input {
+    display: none;
+}
+
+.add-img-input-label {
+    align-self: center;
+    padding: 10px;
+    margin: 15px;
+}
+
+table td {
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.next-page-btn, .previous-page-btn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.next-page-btn{
+    margin-inline-end: 20px;
+}
+
+.previous-page-btn {
+    margin-inline-start: 20px;
+}
+
+
+.fa-caret-left, .fa-caret-right {
+    font-size: 30px;
+    background-color: transparent;
+}
+
+.fa-circle-down {
+    margin-block-start: 5px;
+}
+
+input, select {
+    cursor: pointer;
+}
+
+
+.emoji-row-container {
+    margin-block-start: 20px;
 }

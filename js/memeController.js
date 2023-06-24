@@ -2,20 +2,20 @@
 
 var gElCanvas
 var gCtx
-var gUserImage = null
+var gOtherImage = null
+var gDraggedLine = null
+var gMouseDownPos = {}
+
 
 
 function renderMeme() {
-
 
     const meme = getMeme()
 
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
-    const imageSrc = (gUserImage)?  gUserImage.src : `img/meme-imgs-square/${meme.selectedImgId}.jpg`
-
-    gUserImage = null
+    const imageSrc = (gOtherImage)?  gOtherImage.src : `img/meme-imgs-square/${meme.selectedImgId}.jpg`
 
     const selectedLine = (meme.lines[meme.selectedLineIdx])? meme.lines[meme.selectedLineIdx] : meme.lines[0]
 
@@ -44,6 +44,7 @@ function renderMeme() {
 }
 
 function drawSelectedLine(txt, size, x, y){
+
     var textWidth = gCtx.measureText(txt).width
     var textHeight = size
 
@@ -51,13 +52,9 @@ function drawSelectedLine(txt, size, x, y){
     var borderWidth = textWidth + 8
     var borderHeight = textHeight + 8
 
-    var borderX = generateSelectedLineXPosition(borderWidth)
-    var borderY = 50 - gCtx.measureText(txt).fontBoundingBoxAscent
-
     gCtx.lineWidth = 2
-    gCtx.strokeRect(borderX, y-35, borderWidth, borderHeight)
+    gCtx.strokeRect(x - borderWidth / 2, y - borderHeight + 8, borderWidth, borderHeight);
 
-    //save dimensions for onLineClick select:
     setLineDimensions(x, y, borderWidth, borderHeight)
 }
 
@@ -74,8 +71,7 @@ function onDownloadCanvas(elLink) {
 
 function onAddImage(ev) {
     loadImageFromInput(ev, function (img) {
-        gUserImage = img
-        // setImage(img)
+        gOtherImage = img
         renderMeme()
     })
 }
@@ -138,7 +134,7 @@ function onChangeAlign() {
 
 function onAddNewLine() {
     const meme = getMeme()
-    const newLineId = addNewLine()
+    const newLineId = addNewLine('Your Text Here')
     setSelectedLineById(newLineId)
     updateInputText(meme)
     renderMeme()
@@ -191,7 +187,88 @@ function onRandomMeme() {
     renderMeme()
 }
 
-
 function updateInputText(meme) {
     document.getElementById('text-input').value = meme.lines[meme.selectedLineIdx].txt
+}
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousedown', onMouseDown)
+    gElCanvas.addEventListener('mousemove', onMouseMove)
+    gElCanvas.addEventListener('mouseup', onMouseUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchstart', onMouseDown)
+    gElCanvas.addEventListener('touchmove', onMouseMove)
+    gElCanvas.addEventListener('touchend', onMouseUp)
+}
+
+function onMouseDown(event) {
+
+    gElCanvas.style.cursor = 'grabbing'
+
+    const offsetX = event.offsetX
+    const offsetY = event.offsetY
+
+    const meme = getMeme()
+    for (var i = 0; i < meme.lines.length; i++) {
+        const line = meme.lines[i];
+        if (
+        offsetX > line.x - line.width / 2 &&
+        offsetX < line.x + line.width / 2 &&
+        offsetY > line.y - line.height &&
+        offsetY < line.y + 12
+        ) {
+        gDraggedLine = line
+        gMouseDownPos = { x: offsetX, y: offsetY }
+        setSelectedLineIdx(i)
+        updateInputText(getMeme())
+        renderMeme()
+        return
+        }
+    }
+}
+
+function onMouseMove(event) {
+    if (gDraggedLine) {
+        const offsetX = event.offsetX
+        const offsetY = event.offsetY
+
+        const dx = offsetX - gMouseDownPos.x
+        const dy = offsetY - gMouseDownPos.y
+        gMouseDownPos = { x: offsetX, y: offsetY }
+        gDraggedLine.x += dx
+        gDraggedLine.y += dy
+
+        renderMeme()
+    }
+}
+
+function onMouseUp(event) {
+    gDraggedLine = null
+    console.log('gElCanvas', gElCanvas)
+    gElCanvas.style.cursor = 'default'
+}
+
+function resetOtherImg() {
+    gOtherImage = null
+}
+
+function onChangePage(change) {
+    changePage(change)
+    renderEmojiLine()
+}
+
+function onClickEmoji(txt) {
+    addNewLine(txt)
+    renderMeme()
+}
+
+function renderEmojiLine() {
+    const emojis = getEmojis()
+    console.log('emojis', emojis)
+    var strHtmls = emojis.map(emoji => `
+        <td onclick="onClickEmoji('${emoji.txt}')">${emoji.txt}</td>
+    `)
+    document.querySelector('tbody tr').innerHTML = strHtmls.join('')
 }

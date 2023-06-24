@@ -6,6 +6,7 @@
     background-image: var(--bgImgHeaderFooter);
     margin-block-start: 15px;
     color: white;
+    margin-top: auto;
 }
 
 .footer-container {
