@@ -24,7 +24,7 @@
                 <nav class="main-nav-container">
                     <ul class="main-nav">
                         <li><a href="#" onclick="switchToGalleryView()">Gallery</a></li>
-                        <li><a href="#">Saved</a></li>
+                        <li><a href="#" onclick="switchToSavedMemesView()">Saved</a></li>
                     </ul>
                 </nav>
             </div>
@@ -33,6 +33,11 @@
         <main>
             <section class="img-gallery-section">
                 <ul class="img-gallery">
+                </ul>
+            </section>
+
+            <section class="saved-memes-section">
+                <ul class="saved-memes">
                 </ul>
             </section>
 
@@ -91,12 +96,12 @@
                         <button class=previous-page-btn data-trans="back" onclick="onChangePage(-1)">
                             <i class="fa-solid fa-caret-left"></i>
                         </button>
-                            <table>
-                                <tbody>
-                                        <tr>
-                                        </tr>
-                                </tbody>
-                            </table>
+                        <table>
+                            <tbody>
+                                    <tr>
+                                    </tr>
+                            </tbody>
+                        </table>
                         <button class=next-page-btn data-trans="next" onclick="onChangePage(1)">
                             <i class="fa-solid fa-caret-right"></i>
                         </button>
@@ -117,16 +122,26 @@
                                 <i class="fa-solid fa-share-nodes"></i>
                                 <div>Share</div>
                             </button>
+                            <button class="btn press-effect save-btn" onclick="onSaveMeme()">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <div>Save</div>
+                            </button>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <div class="save-modal-container" class="modal">
+                <div class="save-modal">
+                    <h3>Meme Saved</h3>
+                </div>
+            </div>
         </main>
 
         <footer class="main-footer">
             <div class="footer-container flex space-between align-center direction-column">
-                <h3>© 2023 SALAMTAK MEME GENERATOR  -  All Rights Reserved</h3>
                 <ul class="social-links flex clean-list">
+                    <h3>© 2023 SALAMTAK MEME GENERATOR  -  All Rights Reserved</h3>
                 </ul>
             </div>
         </footer>
@@ -134,6 +149,7 @@
     <script src="js/services/utilService.js"></script>
     <script src="js/services/memeService.js"></script>
     <script src="js/galleryController.js"></script>
+    <script src="js/savedController.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/main.js"></script>
     </body>
