@@ -1,8 +1,7 @@
 'use strict'
 
 function onInit() {
-    // renderGallery()
-    switchToMemeView()
+    renderGallery()
     addMouseListeners()
     addTouchListeners()
 }
