@@ -7,10 +7,10 @@ var gDraggedLine = null
 var gMouseDownPos = {}
 
 
-
 function renderMeme() {
 
     const meme = getMeme()
+    console.log('meme', meme)
 
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -271,4 +271,17 @@ function renderEmojiLine() {
         <td onclick="onClickEmoji('${emoji.txt}')">${emoji.txt}</td>
     `)
     document.querySelector('tbody tr').innerHTML = strHtmls.join('')
+}
+
+function onSaveMeme() {
+    showModal()
+    saveMeme()
+}
+
+function showModal() {
+    var modal = document.querySelector('.save-modal-container');
+    modal.style.bottom = "0"
+    setTimeout(function() {
+      modal.style.bottom = "-100px"
+    }, 2000)
 }

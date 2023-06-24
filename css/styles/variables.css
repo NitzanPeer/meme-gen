@@ -1,17 +1,4 @@
 :root {
-    --clrBtn1: #2628aa;
-    --clrBtn2: #2628aa;
-    --clrBtn3: #2628aa;
-    --clrBtn4: #2628aa;
-    --clrBtn5: #2628aa;
-    --clrBtn6: #2628aa;
-    --clrBtnHover1: rgb(0, 0, 0);
-    --clrBtnHover2: rgb(2, 82, 255);
-    --clrBtnHover3: rgb(2, 82, 255);
-    --clrBtnHover4: rgb(2, 82, 255);
-    --clrBtnHover5: rgb(2, 82, 255);
-    --clrBtnHover6: rgb(2, 82, 255);
     --bgImgHeaderFooter: linear-gradient(to right,#ff8a00, #fc045f);
     --bgImgMain: linear-gradient(to left, #d1d1d1, #696969);
-    /* --bgImgMain: linear-gradient(to left, #db1f1f88, #fc045f); */
 }

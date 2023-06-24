@@ -1,0 +1,17 @@
+.saved-memes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-flow: dense;
+    gap: 10px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.saved-memes img {
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+.saved-memes img:hover {
+    border: 6px solid rgba(0, 0, 0);
+}

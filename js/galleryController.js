@@ -1,7 +1,8 @@
 'use strict'
 
-function renderGallery(images) {
-    var images = getImages()
+
+function renderGallery() {
+    const images = getImages()
     var strHTMLs = images.map(image => `
         <li class="gallery-img">
             <a href="#" onclick="onImgSelect(${image.id})"><img src="${image.imgUrl}" alt=""></a>
@@ -12,6 +13,7 @@ function renderGallery(images) {
 
 function onImgSelect(imgId) {
     setImg(imgId)
+    setImgURL(imgId)
     switchToMemeView()
 }
 

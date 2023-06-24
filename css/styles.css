@@ -9,22 +9,7 @@
 @import url("styles/main-header.css");
 @import url("styles/main-footer.css");
 @import url("styles/img-gallery.css");
+@import url("styles/saved-memes.css");
 @import url("styles/editor.css");
 @import url("styles/main.css");
-
-
-
-/* FONTS */
-
-@font-face {
-    font-family: Mogra;
-    src: url("/fonts/Mogra-Regular.ttf")
-}
-@font-face {
-    font-family: Swanky;
-    src: url("/fonts/FontdinerSwanky-Regular.ttf")
-}
-@font-face {
-    font-family: Potta;
-    src: url("/fonts/PottaOne-Regular.ttf")
-}
+@import url("styles/fonts.css");

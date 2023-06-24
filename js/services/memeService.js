@@ -1,5 +1,6 @@
 'use strict'
 
+
 const STORAGE_KEY = 'memeDB'
 
 const PAGE_SIZE = 5
@@ -8,7 +9,6 @@ var gLastPageIdx
 
 var gSavedMemes = []
 
-// var gImgs = [{id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat']}]
 
 var gEmojis = [
     {txt: '😀'}, {txt: '😁'}, {txt: '😍'}, {txt: '😶'},
@@ -31,6 +31,8 @@ var gPos = [
 var gYpos = 200
 
 var gMeme = {
+    id: null,
+    selectedImgURL: null,
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [
@@ -102,7 +104,6 @@ function getImageById(imgId) {
 
 function _createImage(imgId) {
     var imgUrl = `img/meme-imgs-square/${imgId}.jpg`
-    // var imgUrl = `img/meme-imgs-various/${imgId}.jpg`
     return {
         id: imgId,
         imgUrl
@@ -112,7 +113,9 @@ function _createImage(imgId) {
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
 }
-
+function setImgURL(imgId) {
+    gMeme.selectedImgURL = `img/meme-imgs-square/${imgId}.jpg`
+}
 function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
@@ -238,8 +241,15 @@ function getEmojis() {
     return emojis.slice(startIdx, startIdx + PAGE_SIZE)
 }
 
-// Feature B (in progress)
 function saveMeme() {
+    gMeme.id = makeId()
+    var savedMeme = JSON.parse(JSON.stringify(gMeme))
+    gSavedMemes.push(savedMeme)
     saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
+function getMemes() {
+    var memes = loadFromStorage(STORAGE_KEY)
+    if (!memes) memes = []
+    return memes
+}

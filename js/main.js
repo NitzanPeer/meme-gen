@@ -1,22 +1,31 @@
 'use strict'
 
 function onInit() {
+    // renderGallery()
     switchToMemeView()
     addMouseListeners()
     addTouchListeners()
-    // renderGallery()
 }
 
 function switchToGalleryView() {
     showGallery()
     hideMeme()
+    hideSavedMemes()
     renderGallery()
     resetOtherImg()
 }
 
-function switchToMemeView(){
-    hideGallery()
+function switchToMemeView() {
     showMeme()
+    hideGallery()
+    hideSavedMemes()
     renderMeme()
     renderEmojiLine()
+}
+
+function switchToSavedMemesView() {
+    showSavedMemes()
+    hideGallery()
+    hideMeme()
+    renderSavedMemes()
 }
