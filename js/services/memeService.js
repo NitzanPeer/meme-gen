@@ -113,11 +113,9 @@ function _createImage(imgId) {
 }
 
 function setImg(imgId) {
-    console.log('setImg', imgId)
     gMeme.selectedImgId = imgId
 }
 function setImgURL(imgId) {
-    console.log('setImgURL', imgId)
     gMeme.selectedImgURL = `img/meme-imgs-square/${imgId}.jpg`
 }
 function setLineTxt(text) {
@@ -149,7 +147,8 @@ function setLines(lines){
 
 function changeSize(isIncrease) {
     var size = gMeme.lines[gMeme.selectedLineIdx].size
-    size = (isIncrease)? size + 4 : size - 4
+    size = (isIncrease)? size + 5 : size - 5
+    if(size < 20) size = 16
     setSize(size)
 }
 
@@ -169,6 +168,7 @@ function getLineById(lineId) {
 
 function addNewLine(txt) {
     const id = makeId()
+    gYpos += 8
 
     gMeme.lines.push(
         {
@@ -179,7 +179,7 @@ function addNewLine(txt) {
             color: 'white',
             textAlign: 'center',
             x: 225,
-            y: gYpos++,
+            y: gYpos,
             width: gCtx.measureText(txt).width,
             height: 36
         }
@@ -252,7 +252,6 @@ function getEmojis() {
 }
 
 function saveMeme() {
-    // gMeme.id = makeId()
     var savedMeme = JSON.parse(JSON.stringify(gMeme))
     gSavedMemes.push(savedMeme)
     saveToStorage(STORAGE_KEY, gSavedMemes)

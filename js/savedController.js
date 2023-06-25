@@ -3,7 +3,6 @@
 
 function renderSavedMemes() {
     const memes = getMemes()
-    console.log('memes', memes)
     if (!memes.length) return
     var strHTMLs = memes.map((meme, index) => `
         <li class="saved-meme">

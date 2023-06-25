@@ -8,11 +8,11 @@
 }
 
 .saved-memes img {
-    border: 1px black solid;
+    border: 1px solid;
     border-radius: 10px;
     max-width: 200px;
 }
 
 .saved-memes img:hover {
-    border: 6px solid rgba(0, 0, 0);
+    box-shadow: 10px 5px 5px rgb(0, 0, 0);
 }

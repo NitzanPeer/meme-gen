@@ -7,10 +7,9 @@ var gDraggedLine = null
 var gMouseDownPos = {}
 
 
-function renderMeme() {
+function renderMeme(isSaving=false) {
 
     const meme = getMeme()
-    console.log('meme', meme)
 
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -53,15 +52,13 @@ function drawSelectedLine(txt, size, x, y){
     var borderHeight = textHeight + 8
 
     gCtx.lineWidth = 2
+    gCtx.strokeStyle = 'black'
     gCtx.strokeRect(x - borderWidth / 2, y - borderHeight + 8, borderWidth, borderHeight);
+    gCtx.strokeStyle = 'white'
+    gCtx.strokeRect(x - borderWidth / 2 + 1, y - borderHeight + 9, borderWidth - 2, borderHeight - 2);
 
     setLineDimensions(x, y, borderWidth, borderHeight)
 }
-
-function generateSelectedLineXPosition(borderWidth){
-    return (gElCanvas.width / 2) - (borderWidth / 2)
-}
-
 
 function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
@@ -172,7 +169,6 @@ function addMouseListeners() {
 }
 
 function onMouseDown(event) {
-
     gElCanvas.style.cursor = 'grabbing'
 
     const offsetX = event.offsetX
@@ -214,7 +210,6 @@ function onMouseMove(event) {
 
 function onMouseUp(event) {
     gDraggedLine = null
-    console.log('gElCanvas', gElCanvas)
     gElCanvas.style.cursor = 'default'
 }
 
@@ -234,7 +229,6 @@ function onClickEmoji(txt) {
 
 function renderEmojiLine() {
     const emojis = getEmojis()
-    console.log('emojis', emojis)
     var strHtmls = emojis.map(emoji => `
         <td onclick="onClickEmoji('${emoji.txt}')">${emoji.txt}</td>
     `)
