@@ -7,7 +7,7 @@ var gDraggedLine = null
 var gMouseDownPos = {}
 
 
-function renderMeme(isSaving=false) {
+function renderMeme(showSelectBorder=true, onRenderDone=null) {
 
     const meme = getMeme()
 
@@ -19,7 +19,7 @@ function renderMeme(isSaving=false) {
     const selectedLine = (meme.lines[meme.selectedLineIdx])? meme.lines[meme.selectedLineIdx] : meme.lines[0]
 
     const image = new Image()
-    image.src = imageSrc
+
     image.onload = function () {
 
         gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -35,11 +35,15 @@ function renderMeme(isSaving=false) {
             gCtx.strokeText(txt, x, y)
             gCtx.fillText(txt, x, y)
 
-            if(line.id === selectedLine.id) {
+            if(selectedLine && line.id === selectedLine.id && showSelectBorder) {
                 drawSelectedLine(txt, size, x, y)
             }
         })
+        if(onRenderDone){
+            onRenderDone()
+        }
     }
+    image.src = imageSrc
 }
 
 function drawSelectedLine(txt, size, x, y){
@@ -60,10 +64,23 @@ function drawSelectedLine(txt, size, x, y){
     setLineDimensions(x, y, borderWidth, borderHeight)
 }
 
-function onDownloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL()
-    elLink.href = data
-    elLink.download = 'my-canvas.jpg'
+function onDownloadCanvas(event) {
+
+    event.preventDefault()
+
+    renderMeme(false, () => {
+
+        const data = gElCanvas.toDataURL('image/jpeg')
+
+        var link = document.createElement('a')
+
+        link.href = data
+        link.download = 'my-canvas.jpg'
+
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    })
 }
 
 function onAddImage(ev) {
@@ -74,6 +91,8 @@ function onAddImage(ev) {
 }
 
 function onUploadCanvas() {
+    renderMeme(false)
+
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
 
     function onSuccess(uploadedImgUrl) {
@@ -153,9 +172,10 @@ function onSwitchLine() {
 
 
 function onRandomMeme() {
+    onClearCanvas()
     createRandomMeme()
     setImg(getRandomInt(1, 18))
-    renderMeme()
+    renderMeme(false)
 }
 
 function updateInputText(meme) {

@@ -88,7 +88,7 @@ function getRandomWord(words) {
     return words[getRandomInt(0, 4)]
 }
 function getRandomPos(pos) {
-    return pos[getRandomInt(0, 11)]
+    return pos[getRandomInt(0, pos.length-1)]
 }
 function getRandomImg(imgs) {
     console.log(imgs[getRandomInt(0, 17)])

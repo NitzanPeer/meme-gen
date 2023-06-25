@@ -25,7 +25,9 @@ var gPos = [
     {x: 280, y: 325}, {x: 170, y: 140}, {x: 210, y: 260},
     {x: 110, y: 200}, {x: 240, y: 220}, {x: 130, y: 180},
     {x: 130, y: 240}, {x: 260, y: 190}, {x: 150, y: 190},
-    {x: 140, y: 350}, {x: 270, y: 380}, {x: 150, y: 310}
+    {x: 140, y: 350}, {x: 270, y: 380}, {x: 150, y: 310},
+    {x: 350, y: 350}, {x: 190, y: 440}, {x: 150, y: 400},
+    {x: 52, y: 123}, {x: 400, y: 50}, {x: 72, y: 55}
 ]
 
 var gYpos = 200
@@ -87,11 +89,6 @@ var gImages = [
     _createImage(18)
 ]
 
-
-var gRandomMemes = []
-var gFonts = []
-
-
 function getMeme() {
     return gMeme
 }
@@ -144,7 +141,6 @@ function setLines(lines){
     gMeme.lines = lines
 }
 
-
 function changeSize(isIncrease) {
     var size = gMeme.lines[gMeme.selectedLineIdx].size
     size = (isIncrease)? size + 5 : size - 5
@@ -169,6 +165,7 @@ function getLineById(lineId) {
 function addNewLine(txt) {
     const id = makeId()
     gYpos += 8
+    if(gYpos > 300) gYpos = 200
 
     gMeme.lines.push(
         {
@@ -199,7 +196,6 @@ function removeSelectedLine() {
 }
 
 function setLineDimensions(x, y, width, height) {
-    console.log('gMeme.selectedLineIdx', gMeme.selectedLineIdx)
     const line = gMeme.lines[gMeme.selectedLineIdx]
     line.x = x
     line.y = y
@@ -207,10 +203,9 @@ function setLineDimensions(x, y, width, height) {
     line.height = height
 }
 
-// Feature A
 function createRandomLineProperties() {
     var randPos = getRandomPos(gPos)
-    var randSize = getRandomInt(20, 50)
+    var randSize = getRandomInt(40, 70)
 
     return {
         id: makeId(),
@@ -227,7 +222,7 @@ function createRandomLineProperties() {
 }
 
 function createRandomMeme() {
-    const lineNum = getRandomInt(2, 3)
+    const lineNum = getRandomInt(3, 5)
     for (var i = 0; i < lineNum; i++) {
         gMeme.lines.push(createRandomLineProperties())
     }

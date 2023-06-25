@@ -13,6 +13,7 @@ function switchToGalleryView() {
 }
 
 function switchToMemeView() {
+    setDefaultLines()
     showMeme()
     hideGallery()
     hideSavedMemes()

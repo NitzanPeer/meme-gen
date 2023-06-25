@@ -1,10 +1,3 @@
-<!-- TODO:
-
-1. Need to remove text frame on download / save
-2. Mobile touch events not working. Probably stop prop / prevent defualt. Might be related to z-index.
-
--->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -48,16 +41,16 @@
 
                 <div class="editor-container">
 
-                    <input type="text" id="text-input" placeholder="Your Text Here" oninput="onUpdateText(this.value)">
+                    <input type="text" id="text-input" placeholder="I sometimes eat Falafel" oninput="onUpdateText(this.value)">
 
                     <div class="line-btns-container">
-                        <button class="btn press-effect add-line-btn" onclick="onAddNewLine()">
+                        <button class="btn press-effect add-line-btn" title="Add Line" onclick="onAddNewLine()">
                             <i class="fa-solid fa-plus"></i>
                         </button>
-                        <button class="btn press-effect remove-line-btn" onclick="onRemoveLine()">
+                        <button class="btn press-effect remove-line-btn" title="Remove Line" onclick="onRemoveLine()">
                             <i class="fa-solid fa-trash"></i>
                         </button>
-                        <button class="btn press-effect switch-line-btn" onclick="onSwitchLine()">
+                        <button class="btn press-effect switch-line-btn" title="Switch Line" onclick="onSwitchLine()">
                             <i class="fa-sharp fa-solid fa-repeat"></i>
                         </button>
                         <button class="btn press-effect random-btn" title="Random Meme" onclick="onRandomMeme()">
@@ -66,17 +59,17 @@
                     </div>
 
                     <div class="style-btns-container">
-                        <button class="btn press-effect increase-fontsize-btn" onclick="onChangeSize(true)">
+                        <button class="btn press-effect increase-fontsize-btn" title="Increase Font Size" onclick="onChangeSize(true)">
                             A+
                         </button>
-                        <button class="btn press-effect decrease-fontsize-btn" onclick="onChangeSize(false)">
+                        <button class="btn press-effect decrease-fontsize-btn" title="Decrease Font Size" onclick="onChangeSize(false)">
                             A-
                         </button>
                         <div>
-                            <input class="change-fontclr-input" name="textColor" type="color" value="" oninput="onChangeColor()"></input>
+                            <input class="change-fontclr-input" name="textColor" type="color" title="Change Text Color" oninput="onChangeColor()"></input>
                         </div>
                         <div>
-                            <select id="font-dropdown" onchange="onChangeFont()">
+                            <select id="font-dropdown" title="Change Text Font" onchange="onChangeFont()">
                                 <option value="Impact">Impact</option>
                                 <option value="Arial">Arial</option>
                                 <option value="Times New Roman">Times</option>
@@ -84,7 +77,7 @@
                             </select>
                         </div>
                         <div>
-                            <select id="align-dropdown" onchange="onChangeAlign()">
+                            <select id="align-dropdown" title="Change Text Alignment" onchange="onChangeAlign()">
                                 <option value="center">Center</option>
                                 <option value="left">Right</option>
                                 <option value="right">Left</option>
@@ -110,19 +103,19 @@
                     <div class="option-btns-container">
                         <div class="inner-option-btns-container">
                             <input class="add-img-input" id="fileInput" type="file" onchange="onAddImage(event)">
-                            <label class="add-img-input-label press-effect" for="fileInput" id="fileLabel">
+                            <label class="add-img-input-label press-effect" title="Upload New Template" for="fileInput" id="fileLabel">
                                 <i class="fa-solid fa-upload"></i>
                                 <div>Upload Template</div>
                             </label>
-                            <a class="btn press-effect download-btn" href="#" onclick="onDownloadCanvas(this)" download="">
+                            <a class="btn press-effect download-btn" display='none' href="#" title="Download Meme"  onclick="onDownloadCanvas(event)" >
                                 <i class="fa-solid fa-circle-down"></i>
                                 <div>Download</div>
                             </a>
-                            <button class="btn press-effect share-btn" onclick="onUploadCanvas()">
+                            <button class="btn press-effect share-btn" title="Share Meme" onclick="onUploadCanvas()">
                                 <i class="fa-solid fa-share-nodes"></i>
                                 <div>Share</div>
                             </button>
-                            <button class="btn press-effect save-btn" onclick="onSaveMeme()">
+                            <button class="btn press-effect save-btn" title="Save Meme" onclick="onSaveMeme()">
                                 <i class="fa-solid fa-floppy-disk"></i>
                                 <div>Save</div>
                             </button>
